@@ -1,8 +1,9 @@
 import {
-  Table, Column, Model, BelongsToMany,
+  Table, Column, Model, BelongsToMany, HasMany,
 } from 'sequelize-typescript';
 import Role from './Role';
 import UserRole from './UserRole';
+import Penalty from './Penalty';
 
 @Table({
   tableName: 'users',
@@ -20,4 +21,7 @@ export default class User extends Model {
 
   @BelongsToMany(() => Role, () => UserRole)
     roles!: Role[];
+
+  @HasMany(() => Penalty)
+    penalties!: Penalty[];
 }

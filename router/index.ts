@@ -8,6 +8,7 @@ import authJwt from '../middleware/authJwt';
 import Permission from '../models/Permission';
 import RessourceController from '../controllers/RessourceController';
 import RoleController from '../controllers/RoleController';
+import PenaltyController from '../controllers/PenaltyController';
 
 const router = express.Router();
 
@@ -119,5 +120,29 @@ router.get(
 router.get('/protected', [authJwt.shouldBeLogged], (_: Request, res: Response) => {
   res.send('You have access to protected content !! ');
 });
+
+// ------------------
+
+/**
+ * Penalty routes
+ */
+
+router.get(
+  '/penalties',
+  [authJwt.shouldBeLogged],
+  PenaltyController.index,
+);
+
+router.post(
+  '/penalties',
+  [authJwt.shouldBeLogged],
+  PenaltyController.store as any,
+);
+
+router.delete(
+  '/penalties/:id',
+  [authJwt.shouldBeLogged],
+  PenaltyController.delete,
+);
 
 export default router;

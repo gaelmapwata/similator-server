@@ -18,7 +18,7 @@ export default {
     checkSchema(authValidators.signinSchema),
     async (req: Request, res: Response) => {
       if (handleExpressValidators(req, res)) {
-        return null
+        return null;
       }
 
       const userToLogin = await User.findOne(
