@@ -64,4 +64,5 @@ export default {
       return res.status(500).json(error);
     }
   },
+  logout: (_: unknown, res: Response) => res.status(200).json({}),
 };

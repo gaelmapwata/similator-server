@@ -7,9 +7,28 @@ import { handleExpressValidators } from '../utils/express.util';
 export default {
   index: async (req: Request, res: Response) => {
     try {
-      const penalties = await Penalty.findAll();
+      const page = parseInt(req.query.page as string, 10) || 1;
+      const limit = parseInt(req.query.limit as string, 10) || 10;
+      const offset = (page - 1) * limit;
+      const limitQuery = limit === -1 ? {} : { limit };
 
-      res.status(200).json(penalties);
+      const penaltiesCount = await Penalty.findAndCountAll({
+        ...limitQuery,
+        offset,
+        order: ['company'],
+        attributes: { exclude: ['userId'] },
+      });
+
+      const penaltiesSize = penaltiesCount.count;
+      const totalPages = Math.ceil(penaltiesSize / limit);
+
+      return res.status(200).json({
+        data: penaltiesCount.rows,
+        lastPage: totalPages,
+        currentPage: page,
+        limit,
+        total: penaltiesSize,
+      });
     } catch (error) {
       res.status(500).json(error);
     }
@@ -29,6 +48,46 @@ export default {
       }
     },
   ],
+
+  show: async (req: Request, res: Response) => {
+    try {
+      const { id } = req.params;
+      const user = await Penalty.findByPk(id, {
+        attributes: { exclude: ['userId'] },
+      });
+      return res.status(200).json(user);
+    } catch (error) {
+      return res.status(500).json(error);
+    }
+  },
+
+  update: [
+    checkSchema(penaltyValidator.storeSchema),
+    async (req: Request, res: Response) => {
+      try {
+        if (handleExpressValidators(req, res)) {
+          return null;
+        }
+
+        const { id } = req.params;
+
+        await Penalty.update(
+          req.body,
+          {
+            where: {
+              id,
+            },
+            fields: Penalty.fillable,
+          },
+        );
+
+        return res.status(200).json({ msg: 'success' });
+      } catch (error) {
+        return res.status(500).json(error);
+      }
+    },
+  ],
+
   delete: async (req: Request, res: Response) => {
     try {
       const { id } = req.params;

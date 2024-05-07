@@ -39,6 +39,16 @@ const RESSOURCES: IRessource[] = [
       { name: 'all', slug: 'RESSOURCE:ALL' },
     ],
   },
+  {
+    name: 'penalty',
+    permissions: [
+      { name: 'create', slug: 'PENALTY:CREATE' },
+      { name: 'update', slug: 'PENALTY:UPDATE' },
+      { name: 'read', slug: 'PENALTY:READ' },
+      { name: 'delete', slug: 'PENALTY:DELETE' },
+      { name: 'all', slug: 'PENALTY:ALL' },
+    ],
+  },
 ];
 
 module.exports = {

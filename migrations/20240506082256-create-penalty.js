@@ -14,24 +14,6 @@ module.exports = {
       amount: {
         type: Sequelize.DECIMAL(18, 1),
       },
-      amountDividedBy2: {
-        type: Sequelize.INTEGER,
-      },
-      amountDividedBy4: {
-        type: Sequelize.INTEGER,
-      },
-      amountDividedBy6: {
-        type: Sequelize.INTEGER,
-      },
-      resultPercent25: {
-        type: Sequelize.INTEGER,
-      },
-      resultPercent50: {
-        type: Sequelize.INTEGER,
-      },
-      resultPercent75: {
-        type: Sequelize.INTEGER,
-      },
       userId: {
         allowNull: false,
         type: Sequelize.INTEGER,

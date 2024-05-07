@@ -22,6 +22,7 @@ router.get('/', (_: Request, res: Response) => {
 
 router.post('/auth/signin', AuthController.signin as any);
 router.get('/auth/user', [authJwt.shouldBeLogged], AuthController.getCurrentUser);
+router.post('/auth/logout', AuthController.logout);
 
 // ----------
 
@@ -129,19 +130,34 @@ router.get('/protected', [authJwt.shouldBeLogged], (_: Request, res: Response) =
 
 router.get(
   '/penalties',
-  [authJwt.shouldBeLogged],
+  [authJwt.shouldBeLogged, authJwt.shouldHavePermission(Permission.PENALTY.READ)],
   PenaltyController.index,
 );
 
 router.post(
   '/penalties',
-  [authJwt.shouldBeLogged],
+  [authJwt.shouldBeLogged, authJwt.shouldHavePermission(Permission.PENALTY.CREATE)],
   PenaltyController.store as any,
+);
+
+router.get(
+  '/penalties/:id',
+  [authJwt.shouldBeLogged, authJwt.shouldHavePermission(Permission.PENALTY.READ)],
+  PenaltyController.show,
+);
+
+router.put(
+  '/penalties/:id',
+  [
+    authJwt.shouldBeLogged,
+    authJwt.shouldHavePermission(Permission.PENALTY.UPDATE),
+  ],
+  PenaltyController.update as any,
 );
 
 router.delete(
   '/penalties/:id',
-  [authJwt.shouldBeLogged],
+  [authJwt.shouldBeLogged, authJwt.shouldHavePermission(Permission.PENALTY.DELETE)],
   PenaltyController.delete,
 );
 

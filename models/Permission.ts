@@ -25,6 +25,13 @@ export default class Permission extends Model {
     UPDATE: 'ROLE:UPDATE',
   };
 
+  static PENALTY = {
+    CREATE: 'PENALTY:CREATE',
+    READ: 'PENALTY:READ',
+    DELETE: 'PENALTY:DELETE',
+    UPDATE: 'PENALTY:UPDATE',
+  };
+
   static RESSOURCE = {
     READ: 'ROLE:READ',
   };
