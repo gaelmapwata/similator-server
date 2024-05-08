@@ -1,5 +1,6 @@
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import { checkSchema } from 'express-validator';
+import { Request } from '../types/expressOverride';
 import Penalty from '../models/Penalty';
 import penaltyValidator from '../validators/penalty.validator';
 import { handleExpressValidators } from '../utils/express.util';
@@ -41,7 +42,12 @@ export default {
           return null;
         }
 
-        const penalty = await Penalty.create(req.body);
+        const penalty = await Penalty.create(
+          {
+            ...req.body,
+            userId: req.userId,
+          },
+        );
         return res.status(201).json(penalty);
       } catch (error) {
         return res.status(500).json(error);
