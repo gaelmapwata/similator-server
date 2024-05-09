@@ -46,6 +46,7 @@ const RESSOURCES: IRessource[] = [
       { name: 'update', slug: 'PENALTY:UPDATE' },
       { name: 'read', slug: 'PENALTY:READ' },
       { name: 'delete', slug: 'PENALTY:DELETE' },
+      { name: 'export', slug: 'PENALTY:EXPORT' },
       { name: 'all', slug: 'PENALTY:ALL' },
     ],
   },

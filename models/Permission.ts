@@ -30,6 +30,7 @@ export default class Permission extends Model {
     READ: 'PENALTY:READ',
     DELETE: 'PENALTY:DELETE',
     UPDATE: 'PENALTY:UPDATE',
+    EXPORT: 'PENALTY:EXPORT',
   };
 
   static RESSOURCE = {

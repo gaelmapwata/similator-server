@@ -134,6 +134,12 @@ router.get(
   PenaltyController.index,
 );
 
+router.get(
+  '/penalties/download-csv',
+  [authJwt.shouldBeLogged, authJwt.shouldHavePermission(Permission.PENALTY.EXPORT)],
+  PenaltyController.exportInCSV,
+);
+
 router.post(
   '/penalties',
   [authJwt.shouldBeLogged, authJwt.shouldHavePermission(Permission.PENALTY.CREATE)],
