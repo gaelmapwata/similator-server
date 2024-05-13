@@ -150,8 +150,7 @@ export default {
         montant: penalty.amount,
         'montant/2': penalty.amount / 2,
         'montant/4': penalty.amount / 4,
-        'montant/6': penalty.amount / 6,
-        'montant/50%': (penalty.amount / 6) * (50 / 100),
+        'montant/8': penalty.amount / 8,
       }));
 
       const penaltiesFirstPercent = penalties.map((penalty) => ({
@@ -160,28 +159,33 @@ export default {
         montant: (penalty.amount) * (75 / 100),
         'montant/2': (penalty.amount) * (75 / 100 / 2),
         'montant/4': (penalty.amount) * (75 / 100 / 4),
-        'montant/6': (penalty.amount) * (75 / 100 / 6),
-        'montant/50%': (penalty.amount) * (75 / 100 / 6) * (50 / 100),
+        'montant/8': (penalty.amount) * (75 / 100 / 8),
       }));
 
       const penaltiesSecondPercent = penalties.map((penalty) => ({
         id: penalty.id,
         compagnie: penalty.company,
-        montant: (penalty.amount) * (50 / 100),
-        'montant/2': (penalty.amount) * (50 / 100 / 2),
-        'montant/4': (penalty.amount) * (50 / 100 / 4),
-        'montant/6': (penalty.amount) * (50 / 100 / 6),
-        'montant/50%': (penalty.amount) * (50 / 100 / 6) * (50 / 100),
+        montant: (penalty.amount) * (65 / 100),
+        'montant/2': (penalty.amount) * (65 / 100 / 2),
+        'montant/4': (penalty.amount) * (65 / 100 / 4),
+        'montant/8': (penalty.amount) * (65 / 100 / 8),
       }));
 
       const penaltiesthirdPercent = penalties.map((penalty) => ({
         id: penalty.id,
         compagnie: penalty.company,
-        montant: (penalty.amount) * (25 / 100),
-        'montant/2': (penalty.amount) * (25 / 100 / 2),
-        'montant/4': (penalty.amount) * (25 / 100 / 4),
-        'montant/6': (penalty.amount) * (25 / 100 / 6),
-        'montant/50%': (penalty.amount) * (25 / 100 / 6) * (50 / 100),
+        montant: (penalty.amount) * (55 / 100),
+        'montant/2': (penalty.amount) * (55 / 100 / 2),
+        'montant/4': (penalty.amount) * (55 / 100 / 4),
+        'montant/8': (penalty.amount) * (55 / 100 / 8),
+      }));
+      const penaltiesfourthPercent = penalties.map((penalty) => ({
+        id: penalty.id,
+        compagnie: penalty.company,
+        montant: (penalty.amount) * (45 / 100),
+        'montant/2': (penalty.amount) * (45 / 100 / 2),
+        'montant/4': (penalty.amount) * (45 / 100 / 4),
+        'montant/8': (penalty.amount) * (45 / 100 / 8),
       }));
 
       const workbook = XLSX.utils.book_new();
@@ -196,6 +200,9 @@ export default {
 
       const worksheet4 = XLSX.utils.json_to_sheet(penaltiesthirdPercent);
       XLSX.utils.book_append_sheet(workbook, worksheet4, 'Quatrième Tableau');
+
+      const worksheet5 = XLSX.utils.json_to_sheet(penaltiesfourthPercent);
+      XLSX.utils.book_append_sheet(workbook, worksheet5, 'Cinquième Tableau');
 
       const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'buffer' });
 
